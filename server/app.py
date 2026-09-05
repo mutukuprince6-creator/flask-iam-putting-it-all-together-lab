@@ -62,7 +62,8 @@ class RecipeIndex(Resource):
     def get(self):
         if not session.get('user_id'):
             return {'errors': ['Unauthorized']}, 401
-        return RecipeSchema(many=True).dump(Recipe.query.all()), 200
+        recipes = Recipe.query.filter(Recipe.user_id == session['user_id']).all()
+        return RecipeSchema(many=True).dump(recipes), 200
 
     def post(self):
         user_id = session.get('user_id')
