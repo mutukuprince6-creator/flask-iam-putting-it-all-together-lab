@@ -9,6 +9,39 @@ full authentication and authorization flow using sessions and cookies in Flask,
 so getting this lab under your belt will give you some good code to reference
 when you're building your next project with _auth_. Let's get started!
 
+## Completed Application
+
+This project now includes a Flask REST API and React client for a session-based
+recipe application. Users can create accounts, sign in, stay signed in across
+page refreshes, sign out, browse recipes, and create recipes belonging to their
+account. Passwords are stored as bcrypt hashes and are never serialized in API
+responses.
+
+### API Endpoints
+
+| Method | Endpoint | Purpose |
+| --- | --- | --- |
+| `POST` | `/signup` | Create a user and start a session |
+| `GET` | `/check_session` | Return the current session user |
+| `POST` | `/login` | Authenticate a user and start a session |
+| `DELETE` | `/logout` | End the current session |
+| `GET` | `/recipes` | List recipes for authenticated users |
+| `POST` | `/recipes` | Create a recipe for the authenticated user |
+
+Authenticated failures return `401`, invalid user or recipe data returns `422`,
+and validation errors are returned in an `errors` array for the React forms.
+
+### Verification
+
+Run these commands from `server/`:
+
+```bash
+pytest
+python seed.py
+```
+
+The completed backend currently passes all 19 tests.
+
 ## Tools & Resources
 
 - [GitHub Repo](https://github.com/learn-co-curriculum/flask-iam-putting-it-all-together-lab)
